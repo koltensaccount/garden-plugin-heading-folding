@@ -93,6 +93,28 @@
     content.dgFolding = { reveal: reveal };
     scan();
     onHash();
+    var toc = document.querySelector('.toc-container');
+    var tocQueued = false;
+    function correctFoldedActive() {
+      tocQueued = false;
+      var active = toc && toc.querySelector('a.toc-active[href^="#"]');
+      var target = active && hashTarget(active.hash);
+      var owner = target && target.closest('[data-dg-fold-hidden]');
+      if (!owner) return;
+      while (owner) {
+        target = document.getElementById(owner.getAttribute('data-dg-fold-owner'));
+        owner = target && target.closest('[data-dg-fold-hidden]');
+      }
+      var replacement = target && Array.from(toc.querySelectorAll('a[href^="#"]')).find(function (link) { return hashTarget(link.hash) === target; });
+      if (replacement && replacement !== active) {
+        active.classList.remove('toc-active');
+        replacement.classList.add('toc-active');
+      }
+    }
+    if (toc) new MutationObserver(function () {
+      if (!tocQueued) { tocQueued = true; requestAnimationFrame(correctFoldedActive); }
+    }).observe(toc, {subtree:true, attributes:true, attributeFilter:['class']});
+    document.addEventListener('dg:fold-change', correctFoldedActive);
     observer = new MutationObserver(function (records) {
       if (records.some(function (record) { return Array.from(record.addedNodes).some(function (node) { return node.nodeType === 1 && !node.closest(".dg-fold-button") && (level(node) || node.querySelector("h1,h2,h3,h4,h5,h6")); }); })) {
         scan();

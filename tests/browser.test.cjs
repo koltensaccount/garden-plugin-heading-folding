@@ -56,6 +56,8 @@ test("browser feature, keyboard, repeat initialization and responsive safety", {
     if (id === "heading-folding") {
       const fold = page.locator('#first > .dg-fold-button');
       await fold.focus(); await page.keyboard.press("Space");
+      await page.waitForTimeout(60);
+      assert.equal(await page.locator('.toc-container a.toc-active').getAttribute('href'), '#first');
       assert.equal(await fold.getAttribute("aria-expanded"), "false");
       assert.equal(await page.locator("#first-body").isVisible(), false);
       assert.equal(await page.locator("#second").isVisible(), true);
@@ -156,6 +158,11 @@ test("browser feature, keyboard, repeat initialization and responsive safety", {
       await page.locator('#first > .dg-fold-button').click();
       await page.locator('#first > .dg-fold-button').click();
       assert.equal(await page.locator('#nested-body').isVisible(), false, 'Nested closed state survives parent fold');
+      await page.locator('#chapter > .dg-fold-button').click();
+      assert.equal(await page.locator('#second').isVisible(), false, 'H1 owns nested H2/H3 sections');
+      await page.locator('#chapter > .dg-fold-button').click();
+      assert.equal(await page.locator('#second').isVisible(), true);
+      assert.equal(await page.locator('#nested-body').isVisible(), false);
       await page.evaluate(() => { const heading = document.createElement('h2'); heading.id='dynamic'; heading.textContent='Dynamic'; const text = document.createElement('p'); text.textContent='Dynamic content'; document.querySelector('main.content').append(heading,text); });
       await page.waitForSelector('#dynamic > .dg-fold-button');
       assert.equal(await page.locator('#dynamic > .dg-fold-button').count(), 1);

@@ -14,6 +14,8 @@ Use the small heading disclosure button (Enter/Space on keyboard) to hide conten
 
 ## Settings
 
+Core TOC highlighting is corrected when its active target is hidden by a fold, even without TOC Settings. This observes core state rather than installing another scroll tracker.
+
 | Key | Setting | Default |
 | --- | --- | --- |
 
