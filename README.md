@@ -14,13 +14,11 @@ Use the small heading disclosure button (Enter/Space on keyboard) to hide conten
 
 ## Settings
 
-Core TOC highlighting is corrected when its active target is hidden by a fold, even without TOC Settings. This observes core state rather than installing another scroll tracker.
-
-| Key | Setting | Default |
-| --- | --- | --- |
-
+This plugin has no settings.
 
 ## Compatibility and Accessibility
+
+Core TOC highlighting is corrected when its active target is hidden by a fold, even without TOC Settings. This observes core state rather than installing another scroll tracker.
 
 Works alone and with the other reading plugins. Shared footer controls use the neutral `dg-nav-tools` convention, with a floating fallback when navigation is absent. Each plugin ships the helper it needs; none imports another plugin. Current Digital Garden uses full-document navigation. Initialization is idempotent. Native controls, accessible labels, focus outlines and appropriate ARIA states are retained. Print styles remain separate from screen preferences. Browser storage failures fall back safely.
 
