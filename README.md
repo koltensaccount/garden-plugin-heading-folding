@@ -12,10 +12,6 @@ In Obsidian: Settings > Digital Garden > Plugins > Manage plugins > Browse & ins
 
 Use the small heading disclosure button (Enter/Space on keyboard) to hide content through the next equal/higher heading. Parent folds preserve child fold states. Heading IDs and normal links remain intact. TOC links and hash navigation expand folded ancestors. Fold states last only for the current document. Dynamically added headings are initialized without duplicate buttons. Printing includes all content without changing screen state.
 
-## Settings
-
-This plugin has no settings.
-
 ## Compatibility and Accessibility
 
 Core TOC highlighting is corrected when its active target is hidden by a fold, even without TOC Settings. This observes core state rather than installing another scroll tracker.
